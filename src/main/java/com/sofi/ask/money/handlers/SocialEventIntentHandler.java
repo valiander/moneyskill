@@ -20,7 +20,7 @@ public class SocialEventIntentHandler implements RequestHandler {
         String speechText = "The next event is in Salt Lake City, Utah on December 12, 2018.";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 

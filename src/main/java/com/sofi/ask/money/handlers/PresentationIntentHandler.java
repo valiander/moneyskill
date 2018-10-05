@@ -20,7 +20,7 @@ public class PresentationIntentHandler implements RequestHandler {
         String speechText = "That presentation was <say-as interpret-as=\"expletive\">fuck</say-as>ing <emphasis level=\"strong\">amazing</emphasis>.";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 

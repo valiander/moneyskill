@@ -20,7 +20,7 @@ public class HelpIntentHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "You can say things like check my balance or send money";
         return input.getResponseBuilder()
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .withSpeech(speechText)
                 .withShouldEndSession(false)
                 .build();

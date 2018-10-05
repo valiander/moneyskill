@@ -22,7 +22,7 @@ public class LaunchRequestHandler implements RequestHandler {
         String repromptText = "Please say a command or say help to hear available options";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .withReprompt(repromptText)
                 .build();
     }

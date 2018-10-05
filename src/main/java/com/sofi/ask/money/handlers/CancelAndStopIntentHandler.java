@@ -21,7 +21,7 @@ public class CancelAndStopIntentHandler implements RequestHandler {
         String speechText = "Goodbye";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 }

@@ -57,7 +57,7 @@ public class PLApplicationStatusIntentHandler implements RequestHandler {
 
             ResponseBuilder responseBuilder = input.getResponseBuilder();
 
-            responseBuilder.withSimpleCard(SOFI_NAME, speechText)
+            responseBuilder.withSimpleCard("SoFi", speechText)
                            .withSpeech(speechText)
                            .withShouldEndSession(true);
 

@@ -20,7 +20,7 @@ public class HelloWorldIntentHandler implements RequestHandler {
         String speechText = "Hello world";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 

@@ -29,7 +29,7 @@ public class CheckMyBalanceIntentHandler implements RequestHandler {
         String speechText = "Your balance could be great. <amazon:effect name=\"whispered\">It's probably not.</amazon:effect>";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 }

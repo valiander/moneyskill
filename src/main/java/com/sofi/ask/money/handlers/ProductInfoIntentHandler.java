@@ -24,7 +24,7 @@ public class ProductInfoIntentHandler implements RequestHandler {
         // String speechText = "With " + Constants.SOFI_NAME + " you can explore many loan and personal money tools to help  achieve financial independence";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard(Constants.SOFI_NAME, speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 }

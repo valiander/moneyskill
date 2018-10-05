@@ -21,7 +21,7 @@ public class HowMuchMoneyIntentHandler implements RequestHandler {
         String speechText = "The current balance of your Money account is one thousand, two hundred and thirty-four dollars and eighteen cents";
         return input.getResponseBuilder()
                     .withSpeech(speechText)
-                    .withSimpleCard(Constants.SOFI_NAME, speechText)
+                    .withSimpleCard("SoFi", speechText)
                     .build();
     }
 }
