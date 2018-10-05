@@ -3,14 +3,10 @@ package com.sofi.ask.money.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.*;
-import com.amazon.ask.model.dialog.DelegateDirective;
 import com.amazon.ask.request.Predicates;
 import com.amazon.ask.response.ResponseBuilder;
-import com.sofi.ask.money.constants.Constants;
 
-import java.awt.*;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,11 +24,7 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        if (((IntentRequest)input.getRequest()).getDialogState() != DialogState.COMPLETED) {
-            return input.getResponseBuilder()
-                    .addDelegateDirective(null)
-                    .build();
-        }
+        System.out.println(((IntentRequest)input.getRequest()).getDialogState());
         Request request = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request;
         Intent intent = intentRequest.getIntent();
@@ -66,6 +58,12 @@ public class SendMoneyIntentHandler implements RequestHandler {
         System.out.println("amount is " + amount);
 
         input.getAttributesManager().setSessionAttributes(attribs);
+
+        if (((IntentRequest)input.getRequest()).getDialogState() != DialogState.COMPLETED) {
+            return input.getResponseBuilder()
+                    .addDelegateDirective(null)
+                    .build();
+        }
 
         ResponseBuilder responseBuilder = input.getResponseBuilder();
 
