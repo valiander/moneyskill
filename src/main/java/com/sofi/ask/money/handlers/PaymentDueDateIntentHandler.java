@@ -50,7 +50,7 @@ public class PaymentDueDateIntentHandler implements RequestHandler {
                     .withReprompt(speechText)
                     .withShouldEndSession(false);
         } else {
-            String speechText = "Your next due date for your " + product + " loan is on October 6th.";
+            String speechText = "Your next due date for your " + product + " loan is on October 10th.";
             responseBuilder.withSpeech(speechText)
                     .withShouldEndSession(true);
         }
