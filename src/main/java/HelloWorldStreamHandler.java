@@ -1,6 +1,4 @@
-package com.amazon.ask.helloworld;
-
- import com.amazon.ask.Skill;
+import com.amazon.ask.Skill;
  import com.amazon.ask.Skills;
  import com.amazon.ask.SkillStreamHandler;
 
