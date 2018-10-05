@@ -5,6 +5,7 @@ import static com.amazon.ask.request.Predicates.intentName;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
+import com.sofi.ask.money.constants.Constants;
 
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class FallbackIntentHandler implements RequestHandler {
         String speechText = "Sorry, I don't know that. You can say try saying help!";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("SoFi", speechText)
+                .withSimpleCard(Constants.SOFI_NAME, speechText)
                 .withReprompt(speechText)
                 .build();
     }

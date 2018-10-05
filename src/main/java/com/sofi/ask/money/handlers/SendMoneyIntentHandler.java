@@ -5,6 +5,7 @@ import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.*;
 import com.amazon.ask.request.Predicates;
 import com.amazon.ask.response.ResponseBuilder;
+import com.sofi.ask.money.constants.Constants;
 
 import java.util.Collections;
 import java.util.Map;
@@ -36,27 +37,41 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
         Slot personSlot = slots.get(PERSON_SLOT);
         Slot amountSlot = slots.get(AMOUNT_SLOT);
+        System.out.println(personSlot);
+        System.out.println(personSlot.getConfirmationStatus());
+        System.out.println(personSlot.getName());
+        System.out.println(personSlot.getValue());
+        System.out.println(amountSlot);
+        System.out.println(amountSlot.getConfirmationStatus());
+        System.out.println(amountSlot.getName());
+        System.out.println(amountSlot.getValue());
 
         String speechText, repromptText;
         boolean isAskResponse = false;
 
-        if (personSlot != null && amountSlot != null) {
+        if (personSlot != null && personSlot.getValue() != null && amountSlot != null && amountSlot.getValue() != null) {
             String person = personSlot.getValue();
             String amount = amountSlot.getValue();
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PERSON_KEY, (Object)person));
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(AMOUNT_KEY, (Object)amount));
+            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PERSON_KEY, (Object) person));
+            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(AMOUNT_KEY, (Object) amount));
 
-            speechText = "Ok, I just sent " + amount + " to " + person + ".";
+            speechText = "Ok, I just sent " + amount + " dollars to " + person + ".";
             repromptText = null;
-        } else if (personSlot != null) {
+        } else if (personSlot != null && personSlot.getValue() != null) {
             String person = personSlot.getValue();
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PERSON_KEY, (Object)person));
+            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PERSON_KEY, (Object) person));
 
-            speechText = "Alright";
-            repromptText = "How much would you like to send to " + person + "?";
+            speechText = "How much would you like to send to " + person + "?";
+            repromptText = speechText;
+            isAskResponse = true;
+        } else if (amountSlot != null && amountSlot.getValue() != null) {
+            String amount = amountSlot.getValue();
+            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(AMOUNT_KEY, (Object) amount));
+
+            speechText = "Who would you like to send " + amount + " dollars to?";
+            repromptText = speechText;
             isAskResponse = true;
         } else {
-            // Render an error since we don't know what the users favorite color is.
             speechText = "I'm not sure I understand. Please try again by telling me who you want to send money to";
             repromptText = speechText;
             isAskResponse = true;
@@ -64,7 +79,7 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
         ResponseBuilder responseBuilder = input.getResponseBuilder();
 
-        responseBuilder.withSimpleCard("SoFi", speechText)
+        responseBuilder.withSimpleCard(Constants.SOFI_NAME, speechText)
                 .withSpeech(speechText)
                 .withShouldEndSession(false);
 

@@ -5,6 +5,7 @@ import static com.amazon.ask.request.Predicates.intentName;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
+import com.sofi.ask.money.constants.Constants;
 
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class CancelAndStopIntentHandler implements RequestHandler {
         String speechText = "Goodbye";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("SoFi", speechText)
+                .withSimpleCard(Constants.SOFI_NAME, speechText)
                 .build();
     }
 }
