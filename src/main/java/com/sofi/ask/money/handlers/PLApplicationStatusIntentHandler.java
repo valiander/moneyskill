@@ -10,24 +10,16 @@ import com.amazon.ask.response.ResponseBuilder;
 import java.util.Collections;
 import java.util.Map;
 
-import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
-import com.amazon.ask.model.Intent;
-import com.amazon.ask.model.IntentRequest;
-import com.amazon.ask.model.Request;
 import com.amazon.ask.model.Response;
-import com.amazon.ask.model.Slot;
-import com.amazon.ask.response.ResponseBuilder;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 import static com.amazon.ask.request.Predicates.intentName;
-
+import static com.sofi.ask.money.constants.Constants.SOFI_NAME;
 
 public class PLApplicationStatusIntentHandler implements RequestHandler {
-    public static final String COLOR_KEY = "color";
-    public static final String COLOR_SLOT = "color_slot";
+    public static final String PLAPP_KEY = "plapp";
+    public static final String PLAPP_SLOT = "plapp_slot";
 
         @Override
         public boolean canHandle(HandlerInput input) {
@@ -42,41 +34,36 @@ public class PLApplicationStatusIntentHandler implements RequestHandler {
             Map<String, Slot> slots = intent.getSlots();
 
             // Get the color slot from the list of slots.
-            Slot favoriteColorSlot = slots.get(COLOR_SLOT);
+            Slot plAppId = slots.get(PLAPP_SLOT);
 
-            String speechText, repromptText;
+            String speechText = "";
+
             boolean isAskResponse = false;
 
-            // Check for favorite color and create output to user.
-            if (favoriteColorSlot != null) {
-                // Store the user's favorite color in the Session and create response.
-                String favoriteColor = favoriteColorSlot.getValue();
-                input.getAttributesManager().setSessionAttributes(Collections.singletonMap(COLOR_KEY, favoriteColor));
+            // Check for application id and create output to user.
+            if (plAppId != null) {
+                // Store the user's app id in the Session and create response.
+                String appIdValue = plAppId.getValue();
+                input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PLAPP_KEY, appIdValue));
 
                 speechText =
-                    String.format("I now know that your favorite color is %s. You can ask me your "
-                                  + "favorite color by saying, what's my favorite color?", favoriteColor);
-                repromptText =
-                    "You can ask me your favorite color by saying, what's my favorite color?";
+                    String.format("Your Personal Loan application %s is Ready for Signature. Please log in to your account to sign your documents so you can receive your funds", appIdValue);
 
             } else {
-                // Render an error since we don't know what the users favorite color is.
-                speechText = "I'm not sure what your favorite color is, please try again";
-                repromptText =
-                    "I'm not sure what your favorite color is. You can tell me your favorite "
-                    + "color by saying, my color is red";
+                // Render an error since we don't know what the users pl account number is.
+                speechText = "I'm not sure what account you are looking for, please try again";
                 isAskResponse = true;
             }
 
             ResponseBuilder responseBuilder = input.getResponseBuilder();
 
-            responseBuilder.withSimpleCard("ColorSession", speechText)
+            responseBuilder.withSimpleCard(SOFI_NAME, speechText)
                            .withSpeech(speechText)
-                           .withShouldEndSession(false);
+                           .withShouldEndSession(true);
 
             if (isAskResponse) {
                 responseBuilder.withShouldEndSession(false)
-                               .withReprompt(repromptText);
+                               .withReprompt(speechText);
             }
 
             return responseBuilder.build();
