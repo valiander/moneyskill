@@ -17,7 +17,7 @@ public class ShowMeIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "<audio src=\"http://www.wavsource.com/snds_2018-06-03_5106726768923853/movies/misc/jerry_maguire_show.wav\" />";
+        String speechText = "<audio src=\"http://www.moviewavs.com/php/sounds/?id=gog&media=MP3S&type=Movies&movie=Jerry_Maguire&quote=money2.txt&file=money2.mp3\" />";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard("SoFi", speechText)
