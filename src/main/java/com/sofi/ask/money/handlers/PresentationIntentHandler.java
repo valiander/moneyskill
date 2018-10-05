@@ -17,7 +17,7 @@ public class PresentationIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "That presentation was <say-as interpret-as=\"expletive\">ask</say-as>ing <emphasis level=\"strong\">amazing</emphasis>.";
+        String speechText = "That presentation was <say-as interpret-as=\"expletive\">fuck</say-as>ing <emphasis level=\"strong\">amazing</emphasis>.";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard(Constants.SOFI_NAME, speechText)

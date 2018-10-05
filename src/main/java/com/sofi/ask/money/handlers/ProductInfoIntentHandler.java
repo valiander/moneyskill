@@ -20,13 +20,8 @@ public class ProductInfoIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-
-        Request request = input.getRequestEnvelope().getRequest();
-        IntentRequest intentRequest = (IntentRequest) request;
-        intentRequest.getDialogState();
-        Intent intent = intentRequest.getIntent();
-
         String speechText = Constants.SOFI_NAME + " offers personal loans, student loans, mortgages, and an online only bank that isn't actually a bank";
+        // String speechText = "With " + Constants.SOFI_NAME + " you can explore many loan and personal money tools to help  achieve financial independence";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard(Constants.SOFI_NAME, speechText)
