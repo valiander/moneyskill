@@ -7,6 +7,8 @@ import com.sofi.ask.money.handlers.CancelAndStopIntentHandler;
 import com.sofi.ask.money.handlers.CheckMyBalanceIntentHandler;
 import com.sofi.ask.money.handlers.HelloWorldIntentHandler;
 import com.sofi.ask.money.handlers.HelpIntentHandler;
+import com.sofi.ask.money.handlers.HowMuchMoneyIntentHandler;
+import com.sofi.ask.money.handlers.PLApplicationStatusIntentHandler;
 import com.sofi.ask.money.handlers.SendMoneyIntentHandler;
 import com.sofi.ask.money.handlers.LaunchRequestHandler;
 import com.sofi.ask.money.handlers.SessionEndedRequestHandler;
@@ -23,7 +25,9 @@ public class SoFiStreamHandler extends SkillStreamHandler {
                         new HelpIntentHandler(),
                         new SendMoneyIntentHandler(),
                         new LaunchRequestHandler(),
-                        new SessionEndedRequestHandler())
+                        new SessionEndedRequestHandler(),
+                        new PLApplicationStatusIntentHandler(),
+                        new HowMuchMoneyIntentHandler())
                 .addExceptionHandler(new GenericExceptionHandler())
 //                .withSkillId("amzn1.ask.skill.7c6da0be-ba5f-466a-8299-a05269083126") // marc's
 //                .withSkillId("amzn1.ask.skill.2cd59bee-988a-45b4-89bd-a6725bfb280c") // josh's
