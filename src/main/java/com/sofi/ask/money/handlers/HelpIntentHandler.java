@@ -17,11 +17,11 @@ public class HelpIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "You can say things like Check My Balance or Send Money";
+        String speechText = "You can say things like check my balance or send money";
         return input.getResponseBuilder()
+                .withSimpleCard("SoFi", speechText)
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
-                .withReprompt(speechText)
+                .withShouldEndSession(false)
                 .build();
     }
 }

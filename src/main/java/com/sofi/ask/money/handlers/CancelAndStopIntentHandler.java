@@ -17,9 +17,10 @@ public class CancelAndStopIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
+        String speechText = "Goodbye";
         return input.getResponseBuilder()
-                .withSpeech("Goodbye")
-                .withSimpleCard("HelloWorld", "Goodbye")
+                .withSpeech(speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 }

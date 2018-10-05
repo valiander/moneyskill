@@ -17,11 +17,12 @@ public class LaunchRequestHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "Welcome to SoFy. Taking control of your financial future";
+        String speechText = "Welcome to SoFi. Taking control of your financial future";
+        String repromptText = "Please say a command or say help to hear available options";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
-                .withReprompt(speechText)
+                .withSimpleCard("SoFi", speechText)
+                .withReprompt(repromptText)
                 .build();
     }
 
