@@ -16,10 +16,10 @@ public class CheckMyBalanceIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "Your balance could be great. But probably not.";
+        String speechText = "Your balance could be great. Probably not.";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard("SoFi", speechText)
                 .build();
     }
 

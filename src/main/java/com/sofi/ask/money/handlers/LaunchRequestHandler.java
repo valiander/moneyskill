@@ -17,7 +17,7 @@ public class LaunchRequestHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "Welcome to SoFi. Taking control of your financial future";
+        String speechText = "Welcome to SoFy. Helping you achieve financial independence to realize your ambitions";
         String repromptText = "Please say a command or say help to hear available options";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
