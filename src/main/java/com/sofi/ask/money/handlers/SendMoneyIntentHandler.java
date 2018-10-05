@@ -81,12 +81,8 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
         responseBuilder.withSimpleCard(Constants.SOFI_NAME, speechText)
                 .withSpeech(speechText)
-                .withShouldEndSession(false);
-
-        if (isAskResponse) {
-            responseBuilder.withShouldEndSession(false)
-                    .withReprompt(repromptText);
-        }
+                .withReprompt(repromptText)
+                .withShouldEndSession(!isAskResponse);
 
         return responseBuilder.build();
     }
