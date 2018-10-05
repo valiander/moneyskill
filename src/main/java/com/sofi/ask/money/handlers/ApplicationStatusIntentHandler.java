@@ -25,10 +25,10 @@ public class ApplicationStatusIntentHandler implements RequestHandler {
         intentRequest.getDialogState();
 
         StringBuilder speechText = new StringBuilder();
-        speechText.append("You have two applications");
+        speechText.append("You have two applications. ");
         speechText.append("Your Student Loan application is missing some documents. Please login to ")
         .append(Constants.SOFI_NAME)
-        .append("to add the missing documents.")
+        .append(" to add the missing documents. ")
         .append("Your personal loan application is in funding. You can expect your funds to be available in one to three days");
         return input.getResponseBuilder()
                     .withSpeech(speechText.toString())
