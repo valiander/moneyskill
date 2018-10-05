@@ -59,7 +59,7 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
         input.getAttributesManager().setSessionAttributes(attribs);
 
-        if (amount == null || person == null) {
+        if (amount == null || person == null || intentRequest.getDialogState() != DialogState.COMPLETED) {
             return input.getResponseBuilder()
                     .addDelegateDirective(null)
                     .build();

@@ -18,9 +18,9 @@ public class SoFiStreamHandler extends SkillStreamHandler {
                         new LaunchRequestHandler(),
                         new SessionEndedRequestHandler(),
                         new PresentationIntentHandler(),
-                        new PLApplicationStatusIntentHandler(),
                         new SocialEventIntentHandler(),
                         new ShowMeIntentHandler(),
+                        new ApplicationStatusIntentHandler(),
                         new HowMuchMoneyIntentHandler(),
                         new PaymentDueDateIntentHandler(),
                         new ProductInfoIntentHandler())

@@ -18,7 +18,7 @@ public class HelpIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "You can say things like check my balance or send money";
+        String speechText = "You can say things like check my balance, send money, how much money do I have, or when is my next payment due";
         return input.getResponseBuilder()
                 .withSimpleCard("SoFi", speechText)
                 .withSpeech(speechText)
