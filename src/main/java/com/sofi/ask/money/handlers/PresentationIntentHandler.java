@@ -8,7 +8,7 @@ import com.sofi.ask.money.constants.Constants;
 
 import java.util.Optional;
 
-public class HelloWorldIntentHandler implements RequestHandler {
+public class PresentationIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {

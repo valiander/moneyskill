@@ -26,7 +26,7 @@ public class ProductInfoIntentHandler implements RequestHandler {
         intentRequest.getDialogState();
         Intent intent = intentRequest.getIntent();
 
-        String speechText = Constants.SOFI_NAME + " offers loans and some other money stuff I don't really know much about";
+        String speechText = Constants.SOFI_NAME + " offers personal loans, student loans, mortgages, and an online only bank that isn't actually a bank";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard(Constants.SOFI_NAME, speechText)
