@@ -3,11 +3,14 @@ package com.sofi.ask.money.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.*;
+import com.amazon.ask.model.dialog.DelegateDirective;
 import com.amazon.ask.request.Predicates;
 import com.amazon.ask.response.ResponseBuilder;
 import com.sofi.ask.money.constants.Constants;
 
+import java.awt.*;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,11 +28,11 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-//        return input.getResponseBuilder()
-//                .withSpeech("Ok.")
-//                .withSimpleCard("SendMoney", "Send money to other SoFi members")
-//                .withReprompt("How much would you like to send?")
-//                .build();
+        if (((IntentRequest)input.getRequest()).getDialogState() != DialogState.COMPLETED) {
+            return input.getResponseBuilder()
+                    .addDelegateDirective(null)
+                    .build();
+        }
         Request request = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request;
         Intent intent = intentRequest.getIntent();
@@ -37,52 +40,61 @@ public class SendMoneyIntentHandler implements RequestHandler {
 
         Slot personSlot = slots.get(PERSON_SLOT);
         Slot amountSlot = slots.get(AMOUNT_SLOT);
-        System.out.println(personSlot);
-        System.out.println(personSlot.getConfirmationStatus());
-        System.out.println(personSlot.getName());
-        System.out.println(personSlot.getValue());
-        System.out.println(amountSlot);
-        System.out.println(amountSlot.getConfirmationStatus());
-        System.out.println(amountSlot.getName());
-        System.out.println(amountSlot.getValue());
 
-        String speechText, repromptText;
-        boolean isAskResponse = false;
+        Map<String, Object> attribs = input.getAttributesManager().getSessionAttributes();
 
-        if (personSlot != null && personSlot.getValue() != null && amountSlot != null && amountSlot.getValue() != null) {
-            String person = personSlot.getValue();
-            String amount = amountSlot.getValue();
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PERSON_KEY, (Object) person));
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(AMOUNT_KEY, (Object) amount));
-
-            speechText = "Ok, I just sent " + amount + " dollars to " + person + ".";
-            repromptText = null;
-        } else if (personSlot != null && personSlot.getValue() != null) {
-            String person = personSlot.getValue();
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(PERSON_KEY, (Object) person));
-
-            speechText = "How much would you like to send to " + person + "?";
-            repromptText = speechText;
-            isAskResponse = true;
-        } else if (amountSlot != null && amountSlot.getValue() != null) {
-            String amount = amountSlot.getValue();
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(AMOUNT_KEY, (Object) amount));
-
-            speechText = "Who would you like to send " + amount + " dollars to?";
-            repromptText = speechText;
-            isAskResponse = true;
-        } else {
-            speechText = "I'm not sure I understand. Please try again by telling me who you want to send money to";
-            repromptText = speechText;
-            isAskResponse = true;
+        String person = null;
+        if (attribs.get(PERSON_KEY) != null) {
+            person = attribs.get(PERSON_KEY).toString();
         }
+        String amount = null;
+        if (attribs.get(AMOUNT_KEY) != null) {
+            amount = attribs.get(AMOUNT_KEY).toString();
+        }
+
+        if (personSlot != null && personSlot.getValue() != null) {
+            person = personSlot.getValue();
+            attribs.put(PERSON_KEY, person);
+        }
+
+        if (amountSlot != null && amountSlot.getValue() != null) {
+            amount = amountSlot.getValue();
+            attribs.put(AMOUNT_KEY, amount);
+        }
+
+        System.out.println("person is " + person);
+        System.out.println("amount is " + amount);
+
+        input.getAttributesManager().setSessionAttributes(attribs);
 
         ResponseBuilder responseBuilder = input.getResponseBuilder();
 
-        responseBuilder.withSimpleCard(Constants.SOFI_NAME, speechText)
-                .withSpeech(speechText)
-                .withReprompt(repromptText)
-                .withShouldEndSession(!isAskResponse);
+        if (person == null) {
+            String sampleAmount = "money";
+            if (amount != null) {
+                sampleAmount = amount + " dollars";
+            }
+            String speechText = "Who would you like to send " + sampleAmount + " to?";
+            responseBuilder
+                    .withSpeech(speechText)
+                    .withReprompt(speechText)
+                    .withShouldEndSession(false);
+        } else if (amount == null) {
+            String samplePerson = "?";
+            if (person != null) {
+                samplePerson = " to " + person;
+            }
+            String speechText = "How much would you like to send" + samplePerson + "?";
+            responseBuilder
+                    .withSpeech(speechText)
+                    .withReprompt(speechText)
+                    .withShouldEndSession(false);
+        } else {
+            input.getAttributesManager().setSessionAttributes(Collections.emptyMap());
+            String speechText = "Ok, I just sent " + amount + " dollars to " + person + ".";
+            responseBuilder.withSpeech(speechText)
+                    .withShouldEndSession(true);
+        }
 
         return responseBuilder.build();
     }

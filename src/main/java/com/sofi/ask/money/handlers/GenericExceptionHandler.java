@@ -15,6 +15,7 @@ public class GenericExceptionHandler implements ExceptionHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input, Throwable throwable) {
+        throwable.printStackTrace();
         return input.getResponseBuilder()
                 .withSpeech("Something unexpected happened. Please call customer support.")
                 .build();
