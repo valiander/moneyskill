@@ -11,7 +11,9 @@ public class CheckMyBalanceStreamHandler extends SkillStreamHandler {
                 .addRequestHandlers(
                         new CancelAndStopIntentHandler(),
                         new CheckMyBalanceIntentHandler(),
+                        new HelloWorldIntentHandler(),
                         new HelpIntentHandler(),
+                        new SendMoneyIntentHandler(),
                         new LaunchRequestHandler(),
                         new SessionEndedRequestHandler())
                 .build();
