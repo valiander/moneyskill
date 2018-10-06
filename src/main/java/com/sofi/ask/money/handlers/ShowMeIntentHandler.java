@@ -3,6 +3,7 @@ package com.sofi.ask.money.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
+import com.amazon.ask.model.interfaces.audioplayer.PlayBehavior;
 import com.amazon.ask.request.Predicates;
 import com.sofi.ask.money.constants.Constants;
 
@@ -17,10 +18,11 @@ public class ShowMeIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "<audio src=\"http://www.moviewavs.com/php/sounds/?id=gog&media=MP3S&type=Movies&movie=Jerry_Maguire&quote=money2.txt&file=money2.mp3\" />";
+        String speechText = "<audio src='https://s3.amazonaws.com/sofialexasample/money2.proper.mp3' />";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard("SoFi", speechText)
+                .withShouldEndSession(true)
                 .build();
     }
 
