@@ -12,18 +12,17 @@ public class SoFiStreamHandler extends SkillStreamHandler {
                 .addRequestHandlers(
                         new CancelAndStopIntentHandler(),
                         new CheckMyBalanceIntentHandler(),
-                        new HelloWorldIntentHandler(),
                         new HelpIntentHandler(),
                         new SendMoneyIntentHandler(),
                         new LaunchRequestHandler(),
                         new SessionEndedRequestHandler(),
                         new PresentationIntentHandler(),
                         new SocialEventIntentHandler(),
-                        new ShowMeIntentHandler(),
                         new ApplicationStatusIntentHandler(),
                         new HowMuchMoneyIntentHandler(),
                         new PaymentDueDateIntentHandler(),
                         new ProductInfoIntentHandler(),
+                        new WhatCanIDoIntentHandler(),
                         new PauseIntentHandler(),
                         new ResumeIntentHandler())
                 .addExceptionHandler(new GenericExceptionHandler())
