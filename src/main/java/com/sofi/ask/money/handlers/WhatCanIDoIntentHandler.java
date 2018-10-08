@@ -12,7 +12,7 @@ public class WhatCanIDoIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        return input.matches(Predicates.intentName("SocialEventIntent"));
+        return input.matches(Predicates.intentName("WhatCanIDoIntent"));
     }
 
     @Override
